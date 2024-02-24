@@ -33,3 +33,6 @@
 
 # CMake folder
 build/
+
+# clangd folders
+.cache
