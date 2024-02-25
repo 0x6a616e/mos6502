@@ -1,10 +1,6 @@
 #include "Cpu.h"
 
-#include <format>
 #include <iostream>
-#include <memory>
-
-#include "Memory.h"
 
 void Cpu::printMemoryError() { std::cerr << "The CPU has no memory connected" << std::endl; }
 
@@ -29,7 +25,6 @@ unsigned char Cpu::getFlag(char flag) {
     }
 }
 
-// NV-BDIZC
 void Cpu::setFlag(char flag, unsigned char bit) {
     bit = bit ? 1 : 0;
     switch (flag) {
@@ -63,6 +58,12 @@ void Cpu::setFlag(char flag, unsigned char bit) {
             break;
     }
 }
+
+// Absolute addressing mode
+// unsigned short int abs() {
+//     unsigned char low_byte;
+//     unsigned char high_byte;
+// }
 
 // class Cpu {
 //    public:
@@ -239,61 +240,61 @@ void Cpu::setFlag(char flag, unsigned char bit) {
 //     void _FE();
 // };
 
-Cpu::Cpu() {
-    PC_ = 0x0000;
-    SP_ = 0x00;
-    AC_ = 0x00;
-    X_ = 0x00;
-    Y_ = 0x00;
-    SR_ = 0b00000000;
-}
+// Cpu::Cpu() {
+//     PC_ = 0x0000;
+//     SP_ = 0x00;
+//     AC_ = 0x00;
+//     X_ = 0x00;
+//     Y_ = 0x00;
+//     SR_ = 0b00000000;
+// }
 
-void Cpu::connectMemory(std::unique_ptr<Memory> memory) { memory_ = std::move(memory); }
+// void Cpu::connectMemory(std::unique_ptr<Memory> memory) { memory_ = std::move(memory); }
 
-std::unique_ptr<Memory> Cpu::disconnectMemory() { return std::move(memory_); }
+// std::unique_ptr<Memory> Cpu::disconnectMemory() { return std::move(memory_); }
 
-void Cpu::printPage(unsigned char page) {
-    if (!memory_) {
-        printMemoryError();
-        return;
-    }
-    unsigned short int current_address = (page << 8);
-    unsigned char current_data;
-    for (unsigned char i = 0; i < 16; ++i) {
-        std::cout << std::format("0x{:0>4X}:", current_address);
-        for (unsigned char j = 0; j < 16; ++j) {
-            current_data = memory_->read(current_address);
-            std::cout << std::format("  0x{:0>2X}", current_data);
-            ++current_address;
-        }
-        std::cout << '\n';
-    }
-}
+// void Cpu::printPage(unsigned char page) {
+//     if (!memory_) {
+//         printMemoryError();
+//         return;
+//     }
+//     unsigned short int current_address = (page << 8);
+//     unsigned char current_data;
+//     for (unsigned char i = 0; i < 16; ++i) {
+//         std::cout << std::format("0x{:0>4X}:", current_address);
+//         for (unsigned char j = 0; j < 16; ++j) {
+//             current_data = memory_->read(current_address);
+//             std::cout << std::format("  0x{:0>2X}", current_data);
+//             ++current_address;
+//         }
+//         std::cout << '\n';
+//     }
+// }
 
-void Cpu::printStatus() {
-    std::cout << std::format("A: 0x{:0>2X}, X: 0x{:0>2X}, Y: 0x{:0>2X}\n", AC_, X_, Y_);
-    std::cout << std::format("PC: 0x{:0>4X}, SP: 0x{:0>2X}\n", PC_, SP_);
-    std::cout << std::format("S(NV-BDIZC): {:0>8b}\n", SR_);
-}
+// void Cpu::printStatus() {
+//     std::cout << std::format("A: 0x{:0>2X}, X: 0x{:0>2X}, Y: 0x{:0>2X}\n", AC_, X_, Y_);
+//     std::cout << std::format("PC: 0x{:0>4X}, SP: 0x{:0>2X}\n", PC_, SP_);
+//     std::cout << std::format("S(NV-BDIZC): {:0>8b}\n", SR_);
+// }
 
-void Cpu::reset() {
-    if (!memory_) {
-        printMemoryError();
-        return;
-    }
-    unsigned char low_byte = memory_->read(0xFFFC);
-    unsigned char high_byte = memory_->read(0xFFFF);
-    PC_ = (high_byte << 8) | low_byte;
-    SP_ = 0xFF;
-    AC_ = 0x00;
-    X_ = 0x00;
-    Y_ = 0x00;
-    SR_ = 0b00100000;
-}
+// void Cpu::reset() {
+//     if (!memory_) {
+//         printMemoryError();
+//         return;
+//     }
+//     unsigned char low_byte = memory_->read(0xFFFC);
+//     unsigned char high_byte = memory_->read(0xFFFF);
+//     PC_ = (high_byte << 8) | low_byte;
+//     SP_ = 0xFF;
+//     AC_ = 0x00;
+//     X_ = 0x00;
+//     Y_ = 0x00;
+//     SR_ = 0b00100000;
+// }
 
-void Cpu::step() {
-    if (!memory_) {
-        printMemoryError();
-        return;
-    }
-}
+// void Cpu::step() {
+//     if (!memory_) {
+//         printMemoryError();
+//         return;
+//     }
+// }
