@@ -119,6 +119,7 @@ unsigned short int Cpu::ind() {
 // X-indexed, indirect addressing mode
 unsigned short int Cpu::Xind() {
     unsigned char low_byte = memory_->read(PC_++);
+    low_byte += X_;
     unsigned char high_byte = 0x00;
 
     unsigned short int address = high_byte;
