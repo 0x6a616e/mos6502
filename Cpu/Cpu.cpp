@@ -97,6 +97,25 @@ unsigned short int Cpu::absY() {
     return address;
 }
 
+// Indirect addressing mode
+unsigned short int Cpu::ind() {
+    unsigned char low_byte = memory_->read(PC_++);
+    unsigned char high_byte = memory_->read(PC_++);
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    low_byte = memory_->read(address++);
+    high_byte = memory_->read(address);
+
+    address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -109,7 +128,6 @@ unsigned short int Cpu::absY() {
 //     void run();
 //
 //    private:
-//     unsigned short int ind();
 //     unsigned short int Xind();
 //     unsigned short int indY();
 //     unsigned short int rel();
