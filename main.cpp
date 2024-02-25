@@ -9,6 +9,7 @@ int main() {
     Cpu cpu;
     cpu.connectMemory(std::move(memory));
     cpu.reset();
+    cpu.printPage(0x00);
     cpu.printStatus();
 
     return 0;
