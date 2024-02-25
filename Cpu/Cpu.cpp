@@ -156,6 +156,16 @@ unsigned short int Cpu::indY() {
     return address;
 }
 
+// Relative addressing mode
+unsigned short int Cpu::rel() {
+    unsigned char unsigned_offset = memory_->read(PC_++);
+    char offset = static_cast<char>(unsigned_offset);
+
+    unsigned short int address = PC_ + offset;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -168,7 +178,6 @@ unsigned short int Cpu::indY() {
 //     void run();
 //
 //    private:
-//     unsigned short int rel();
 //     unsigned short int zpg();
 //     unsigned short int zpgX();
 //     unsigned short int zpgY();
