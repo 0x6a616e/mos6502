@@ -116,6 +116,25 @@ unsigned short int Cpu::ind() {
     return address;
 }
 
+// X-indexed, indirect addressing mode
+unsigned short int Cpu::Xind() {
+    unsigned char low_byte = memory_->read(PC_++);
+    unsigned char high_byte = 0x00;
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    low_byte = memory_->read(address++);
+    high_byte = memory_->read(address);
+
+    address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -128,7 +147,6 @@ unsigned short int Cpu::ind() {
 //     void run();
 //
 //    private:
-//     unsigned short int Xind();
 //     unsigned short int indY();
 //     unsigned short int rel();
 //     unsigned short int zpg();
