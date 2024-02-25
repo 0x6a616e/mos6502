@@ -178,6 +178,19 @@ unsigned short int Cpu::zpg() {
     return address;
 }
 
+// Zeropage, X-indexed addressing mode
+unsigned short int Cpu::zpgX() {
+    unsigned char low_byte = memory_->read(PC_++);
+    low_byte += X_;
+    unsigned char high_byte = 0x00;
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -190,7 +203,6 @@ unsigned short int Cpu::zpg() {
 //     void run();
 //
 //    private:
-//     unsigned short int zpgX();
 //     unsigned short int zpgY();
 //     void _00();
 //     void _01();
