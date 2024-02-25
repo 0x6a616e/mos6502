@@ -71,6 +71,19 @@ unsigned short int Cpu::abs() {
     return address;
 }
 
+// Absolute, X-indexed addressing mode
+unsigned short int Cpu::absX() {
+    unsigned char low_byte = memory_->read(PC_++);
+    unsigned char high_byte = memory_->read(PC_++);
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+    address += X_;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -83,8 +96,6 @@ unsigned short int Cpu::abs() {
 //     void run();
 //
 //    private:
-//     unsigned short int abs();
-//     unsigned short int absX();
 //     unsigned short int absY();
 //     unsigned short int ind();
 //     unsigned short int Xind();
