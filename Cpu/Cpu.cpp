@@ -60,10 +60,16 @@ void Cpu::setFlag(char flag, unsigned char bit) {
 }
 
 // Absolute addressing mode
-// unsigned short int abs() {
-//     unsigned char low_byte;
-//     unsigned char high_byte;
-// }
+unsigned short int Cpu::abs() {
+    unsigned char low_byte = memory_->read(PC_++);
+    unsigned char high_byte = memory_->read(PC_++);
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    return address;
+}
 
 // class Cpu {
 //    public:
