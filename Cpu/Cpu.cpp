@@ -166,6 +166,18 @@ unsigned short int Cpu::rel() {
     return address;
 }
 
+// Zeropage addressing mode
+unsigned short int Cpu::zpg() {
+    unsigned char low_byte = memory_->read(PC_++);
+    unsigned char high_byte = 0x00;
+
+    unsigned short int address = high_byte;
+    address <<= 8;
+    address |= low_byte;
+
+    return address;
+}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -178,7 +190,6 @@ unsigned short int Cpu::rel() {
 //     void run();
 //
 //    private:
-//     unsigned short int zpg();
 //     unsigned short int zpgX();
 //     unsigned short int zpgY();
 //     void _00();
