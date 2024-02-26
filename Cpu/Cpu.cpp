@@ -204,6 +204,13 @@ unsigned short int Cpu::zpgY() {
     return address;
 }
 
+/*
+ * OPC: 00
+ * Assembler: BRK
+ * Addressing mode: Implied
+ */
+void Cpu::opc00() {}
+
 // class Cpu {
 //    public:
 //     Cpu();
@@ -216,7 +223,6 @@ unsigned short int Cpu::zpgY() {
 //     void run();
 //
 //    private:
-//     void _00();
 //     void _01();
 //     void _05();
 //     void _06();
