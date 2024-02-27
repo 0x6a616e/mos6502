@@ -29,6 +29,8 @@ class Cpu {
     void printMemoryError();
     unsigned char getFlag(char flag);
     void setFlag(char flag, unsigned char bit);
+    void stackPush(unsigned char data);
+    unsigned char stackPop();
     unsigned short int abs();
     unsigned short int absX();
     unsigned short int absY();

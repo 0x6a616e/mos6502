@@ -59,6 +59,22 @@ void Cpu::setFlag(char flag, unsigned char bit) {
     }
 }
 
+// Push something to the stack
+void Cpu::stackPush(unsigned char data) {
+    unsigned short int stack_address = 0x0100;
+    stack_address |= SP_;
+    memory_->write(stack_address, data);
+    --SP_;
+}
+
+// Pop from the stack
+unsigned char Cpu::stackPop() {
+    ++SP_;
+    unsigned short int stack_address = 0x0100;
+    stack_address |= SP_;
+    return memory_->read(stack_address);
+}
+
 // Absolute addressing mode
 unsigned short int Cpu::abs() {
     unsigned char low_byte = memory_->read(PC_++);
